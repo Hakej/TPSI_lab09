@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html layout:decorator="layout"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <title>Lab09 - TPSI</title>
+    <meta charset="UTF-8"/>
+    <style>
+        .delete-button {
+            background-color: #f44336;
+            border: 1px black;
+            color: white;
+            padding: 5px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            margin-right: 10px;
+        }
+
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="content">
+    <form action="/newpost" method="POST">
+        Tytuł: <input name="title" size="150" type="text"/> <br/>
+        Treść: <br/>
+        <textarea cols="150" name="content" rows="5"></textarea> <br/>
+        <input type="submit" value="Dodaj wpis"/>
+    </form>
+
+
+    <div th:each="post : ${posts}">
+        <div class="flex-column">
+            <div class="flex-row">
+                <h2 th:text="${post.title}"></h2>
+                <form action="/deletepost" method="POST" th:object="${post}">
+                    <input name="id" th:value="${post.getId()}" type="hidden"/>
+                    <button class="delete-button" type="submit" value="Delete">Usuń</button>
+                </form>
+            </div>
+            <p th:text="${post.content}"></p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
