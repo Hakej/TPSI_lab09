@@ -59,7 +59,7 @@
             <div class="flex-row">
                 <h2 th:text="${post.title}"></h2>
                 <form action="/deletepost" method="POST" th:object="${post}">
-                    <input name="id" th:value="${post.getId()}" type="hidden"/>
+                    <input name="id" th:value="${post.id}" type="hidden"/>
                     <button class="delete-button" type="submit" value="Delete">Usuń</button>
                 </form>
             </div>
